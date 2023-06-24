@@ -10,3 +10,7 @@ app.get('/',(req, res) => {
 app.listen(port, () => {
     console.log(`The server is listening on http://hostname:${port}`)
   })
+
+app.get('',(req, res) => {
+  
+})
