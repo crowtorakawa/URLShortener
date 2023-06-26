@@ -18,6 +18,25 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // css js 資料夾位置
 app.use(express.static('public'))
 
+// mongoose
+const mongoose = require('mongoose')
+  //dotenv
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+const db = mongoose.connection
+// 連線異常
+db.on('error', () => {
+  console.log('mongodb error!')
+})
+// 連線成功
+db.once('open', () => {
+  console.log('mongodb connected!')
+})
+
+
+
 
 app.get('/',(req, res) => {
     res.render('index')
@@ -30,9 +49,13 @@ app.get('/shorts/:url',(req,res) => {
 app.post('/',(req,res) => {
   const urlSource = req.body
   const pathCode = generatePathCode()
-  console.log('req.body', urlSource)
-  console.log('pathCode', pathCode)
-  res.render('index',{ pathCode: pathCode})
+  if (urlSource.Unshort.length === 0) {
+    res.render('index',{ error: '請重新輸入'})
+  }else{
+    console.log('req.body', urlSource)
+    console.log('pathCode', pathCode)
+    res.render('index',{ pathCode: pathCode})
+  }
 })
 
 app.listen(port, () => {

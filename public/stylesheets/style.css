@@ -10,8 +10,15 @@
   margin-right: auto;
   margin-top: 10px;
 }
+.card-text{
+  text-align: center;
+  color: red;
+}
 
-/* .translation button{
-  display: block;
-  justify-content: center;
-} */
+.card{
+  /* position: absolute; */
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+  /* border: 5px solid red; */
+}

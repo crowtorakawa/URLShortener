@@ -1,2 +1,6 @@
 /node_modeules
-.DS_Store
+*.DS_Store
+*.gz
+
+#dotenv
+.env
