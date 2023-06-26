@@ -7,8 +7,8 @@ const generatePathCode = require('./generate_trans_code')
 
 // handlebars
 const exphbs =  require('express-handlebars')
-app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
-app.set ('view engine', 'handlebars')
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs'}))
+app.set ('view engine', 'hbs')
 
 // body-parser
 const bodyParser = require('body-parser')
@@ -34,6 +34,7 @@ db.on('error', () => {
 db.once('open', () => {
   console.log('mongodb connected!')
 })
+const urlConvert = require('./models/urlConvert')
 
 
 
@@ -42,19 +43,40 @@ app.get('/',(req, res) => {
     res.render('index')
   })
 
-app.get('/shorts/:url',(req,res) => {
+app.post('/shorts',(req,res) => {
   
 })
 
 app.post('/',(req,res) => {
   const urlSource = req.body
   const pathCode = generatePathCode()
+  const news = { source: urlSource.Unshort, shortCode: pathCode }
+  
+  console.log(news)
   if (urlSource.Unshort.length === 0) {
-    res.render('index',{ error: '請重新輸入'})
+    console.log('0000')
+    return res.render('index',{ error: '請重新輸入'})
   }else{
-    console.log('req.body', urlSource)
-    console.log('pathCode', pathCode)
-    res.render('index',{ pathCode: pathCode})
+    urlConvert.find()
+      .lean()
+      .then(Convert => {
+        const findURL = Convert.filter(
+          ({ source }) =>
+            source.toLowerCase().includes(urlSource.Unshort)
+        )
+        // 有找到
+        if(findURL.length !== 0){     
+          console.log('0001')
+          return res.render('index',{ pathCode: findURL[0].shortCode})
+        }else{
+          console.log('0002')
+          return urlConvert.create(news)
+           .then(() => res.render('index', {pathCode :pathCode}))
+           .catch(err => console.log(err))
+        }           
+      })
+      
+    .catch(error => console.log(error))
   }
 })
 
