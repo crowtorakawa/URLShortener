@@ -36,9 +36,6 @@ db.once('open', () => {
 })
 const urlConvert = require('./models/urlConvert')
 
-
-
-
 app.get('/',(req, res) => {
     res.render('index')
   })
@@ -78,6 +75,25 @@ app.post('/',(req,res) => {
       
     .catch(error => console.log(error))
   }
+})
+
+app.get('/shorts/:url',(req ,res) =>{
+  const url = req.params.url
+  console.log(url)
+  urlConvert.find()
+      .lean()
+      .then(Convert => {
+        const findURL = Convert.filter(
+          ({ shortCode }) =>
+          shortCode.includes(url)
+        )
+        console.log(findURL[0].source)
+        // 有找到
+        return res.redirect(`${findURL[0].source}`)
+      })
+      
+    .catch(error => console.log(error))
+  
 })
 
 app.listen(port, () => {
