@@ -4,7 +4,8 @@
     <div class="card-body translation">
       {{#if pathCode}}
         <h5 class="card-title">Successs! Please use this link </h5>
-        <p class="card-text">http://localhost:3000/{{pathCode}}</p>
+        <p class="card-text urlPath">http://localhost:3000/{{pathCode}}</p>
+        <button class="btn btn-success translation" id="copyBtn" onclick="copyContent()">點擊複製</button>
       {{else}}
         {{#if error}}
           <form action="/" method="post">
