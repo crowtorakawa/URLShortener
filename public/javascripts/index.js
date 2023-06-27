@@ -1,17 +1,16 @@
+const copyBtn = document.querySelector('#copyBtn')
+const urlPath = document.querySelector('#urlPath')
 
+copyBtn.addEventListener('click', () => {
+  const range =document.createRange();
+  const texts = urlPath;
+  range.selectNode(texts)
 
-btn.addEventListener("click", function (){
-    const text = document.querySelector('#copyBtn').parentElement.children[1].innerHTML
+  const selection =window.getSelection();
+  selection.addRange(range);
+  document.execCommand("copy");
 
-    const copyContent = async () => {
-        try {
-          await navigator.clipboard.writeText(text);
-          console.log('Content copied to clipboard');
-        } catch (err) {
-          console.error('Failed to copy: ', err);
-        }
-      }
-    
-    
+  copyBtn.innerHTML = '複製完成'
+  copyBtn.className = 'btn btn-danger translation'
 })
   
