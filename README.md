@@ -21,15 +21,16 @@
    $ git clone https://github.com/crowtorakawa/URLShortener.git
    ```
 5. 建立 .env檔案 內容輸入
+   ```bash
    MONGODB_URI = mongodb+srv://(帳號):(密碼)@(伺服器).ypf5ujz.mongodb.net/(Database名稱)?retryWrites=true&w=majority
-   
-6. 在終端機輸入以下，啟動程式：
+   ```
+7. 在終端機輸入以下，啟動程式：
 
    ```bash
    npm run dev
    ```
       
-7. 若看見此行訊息則代表順利運行
+8. 若看見此行訊息則代表順利運行
 
    ```bash
     The server is listening on http://hostname:3000
