@@ -4,11 +4,11 @@
     <div class="card-body translation">
       {{#if pathCode}}
         <h5 class="card-title">Successs! Please use this link </h5>
-        <p class="card-text" id="urlPath">https://localhost:3000/shorts/{{pathCode}}</p>
+        <p class="card-text" id="urlPath">localhost:3000/shorts/{{pathCode}}/</p>
         <button class="btn btn-success translation" id="copyBtn" >點擊複製</button>
       {{else}}
         {{#if error}}
-          <form action="/" method="post">
+          <form action="/" method="POST">
           <p class="card-text">{{error}}</p>
           <input name="Unshort" type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
           
@@ -17,7 +17,7 @@
           </button>
         </form>
           {{else}}
-        <form action="/" method="post">
+        <form action="/" method="POST">
           <input name="Unshort" type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
           
           <button type="submit" class="btn btn-primary translation">
