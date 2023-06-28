@@ -1,9 +1,9 @@
-//連線用const
+// 連線用const
 const port = 3000
 const express = require('express')
 
 // handlebars
-const exphbs =  require('express-handlebars')
+const exphbs = require('express-handlebars')
 
 const methodOverride = require('method-override')
 const bodyParser = require('body-parser')
@@ -15,8 +15,8 @@ const routes = require('./routes')
 require('./config/mongoose')
 
 // handlebars
-app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs'}))
-app.set ('view engine', 'hbs')
+app.engine('hbs', exphbs({ defaultLayout: 'main', extname: '.hbs' }))
+app.set('view engine', 'hbs')
 // 載入 method-override
 app.use(methodOverride('_method'))
 // body-parser
@@ -26,9 +26,5 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static('public'))
 app.use(routes)
 app.listen(port, () => {
-    console.log(`The server is listening on http://hostname:${port}`)
-  })
-
-
-
-
+  console.log(`The server is listening on http://hostname:${port}`)
+})
