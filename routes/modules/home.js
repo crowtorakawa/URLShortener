@@ -5,12 +5,13 @@ const router = express.Router()
 // atabase
 const urlConvert = require('../../models/urlConvert')
 // 亂數五碼產生
-const generatePathCode = require('../../generateTransCode')
+const generatePathCode = require('../../public/javascripts/generateTransCode')
+const URLlValid = require('../../public/javascripts/URLValid')
 
 router.post('/', (req, res) => {
   const urlSource = req.body
-  // 先判斷有沒有內容在裡面
-  if (urlSource.Unshort.length === 0) {
+  // 先判斷有沒有內容在裡面，或有沒有符合url合法性
+  if (urlSource.Unshort.length === 0 || URLlValid(urlSource.Unshort) !== true) {
     return res.render('index', { error: '請重新輸入' })
   } else {
     // 有內容就先從資料庫看看有無紀錄
